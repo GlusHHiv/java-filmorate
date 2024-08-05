@@ -1,12 +1,23 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import lombok.NonNull;
 
 /**
  * Film.
  */
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 public class Film {
+
+    private Long id;
+    private String name;
+    private String description;
+    @NonNull
+    private String releaseDate;
+    @NonNull
+    private Integer duration;
+
 }
