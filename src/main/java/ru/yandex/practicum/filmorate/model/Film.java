@@ -13,6 +13,7 @@ import lombok.NonNull;
 public class Film {
 
     private Long id;
+    @NonNull
     private String name;
     private String description;
     @NonNull

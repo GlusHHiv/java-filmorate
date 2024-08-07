@@ -1,22 +1,21 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-    private final Logger log = LoggerFactory.getLogger(FilmController.class);
     private Map<Long, Film> films = new HashMap<>();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -26,8 +25,7 @@ public class FilmController {
     }
 
     @PostMapping
-    public Film create(@RequestBody Film film) {
-        System.out.println(film);
+    public Film validate(@RequestBody Film film) {
         checkConditions(film);
         log.info("Новый обЪект Film прошел проверку");
         film.setId(getNextId());
