@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 public class FilmControllerTest {
     FilmController filmController = new FilmController();
+
     @Test
     public void nameNullTest() {
         Assertions.assertThrows(ValidationException.class,
