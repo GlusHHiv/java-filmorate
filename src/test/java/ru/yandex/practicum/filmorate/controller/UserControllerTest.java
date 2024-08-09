@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.model.User;
 
 public class UserControllerTest {
     UserController userController = new UserController();
+    
     @Test
     public void emailValidationTest() {
         Assertions.assertThrows(ValidationException.class,
