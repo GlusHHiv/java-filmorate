@@ -27,12 +27,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User validate(@RequestBody User user) {
+    public User create(@RequestBody User user) {
         if (user == null) {
             log.error("user == null");
             throw new ValidationException("Передан null объект");
         }
-        checkConditions(user);
+        validate(user);
         user.setId(getNextId());
         if (user.getName() == null || user.getName().isBlank()) {
             log.debug("В качестве имени объекта взят логин {}.", user.getName());
@@ -46,7 +46,7 @@ public class UserController {
 
     @PutMapping
     public User update(@RequestBody User user) {
-        checkConditions(user);
+        validate(user);
         if (user.getId() == null) {
             log.error("Нарушена валидация при обновлении объекта User");
             throw new ValidationException("id не был указан");
@@ -64,7 +64,7 @@ public class UserController {
         throw new NotFoundException("Пользователя с id: " + user.getId() + "не найдено");
     }
 
-    private void checkConditions(User user) {
+    private void validate(User user) {
         if (user.getEmail() == null || !user.getEmail().contains("@") || user.getEmail().isBlank()) {
             log.error("Нарушена валидация объкекта User: {}", user.getEmail());
             throw new ValidationException("электронная почта не может быть пустой и должна содержать символ '@'");

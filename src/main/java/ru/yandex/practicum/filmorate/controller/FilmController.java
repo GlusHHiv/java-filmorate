@@ -25,8 +25,8 @@ public class FilmController {
     }
 
     @PostMapping
-    public Film validate(@RequestBody Film film) {
-        checkConditions(film);
+    public Film create(@RequestBody Film film) {
+        validate(film);
         log.info("Новый обЪект Film прошел проверку");
         film.setId(getNextId());
         films.put(film.getId(), film);
@@ -36,7 +36,7 @@ public class FilmController {
 
     @PutMapping
     public Film update(@RequestBody Film newFilm) {
-        checkConditions(newFilm);
+        validate(newFilm);
         if (newFilm.getId() == null) {
             log.error("Нарушена валидация объкекта Film: не указан id");
             throw new ValidationException("id должен быть указан");
@@ -59,7 +59,7 @@ public class FilmController {
         return ++currentMaxId;
     }
 
-    private void checkConditions(Film film) {
+    private void validate(Film film) {
         if (film.getName() == null || film.getName().isBlank()) {
             log.error("Нарушена валидация объкекта Film: {}", film.getName());
             throw new ValidationException("Название не может быть пустым");
